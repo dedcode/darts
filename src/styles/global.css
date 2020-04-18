@@ -1,0 +1,45 @@
+/*! purgecss start ignore */
+@tailwind base;
+
+body {
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(0, 0%, 45%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(0, 0%, 60%);
+}
+
+h1 {
+  @apply text-4xl mb-8 font-bold;
+}
+
+h2 {
+  @apply text-2xl mt-12 mb-6 font-bold;
+}
+
+p {
+  @apply mb-6 leading-relaxed;
+}
+
+ul {
+  @apply list-disc list-inside mb-6;
+}
+
+@import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap&text=DannyLibin');
+
+@tailwind components;
+/*! purgecss end ignore */
+
+@tailwind utilities;
