@@ -26,7 +26,7 @@ const PostsPage = ({ path }: Props) => {
   const qiqBaseURL =
     process.env.NODE_ENV === 'production'
       ? 'https://questsincode.com'
-      : 'http://localhost:5000';
+      : 'http://localhost:8001';
 
   useEffect(() => {
     fetch(`${qiqBaseURL}/postsMetaData.json`)
@@ -59,11 +59,15 @@ const PostsPage = ({ path }: Props) => {
       const postTags = !post.tags.length
         ? null
         : post.tags.map((tag, index) => (
-            <a key={index} target="_blank" href={`${qiqBaseURL}/topics`}>
+            <a
+              key={index}
+              target="_blank"
+              href={`${qiqBaseURL}/topics?topic=${tag}`}
+            >
               <span
                 className={
                   'py-1 px-4 text-sm font-semibold tracking-widest rounded-full cursor-pointer transition duration-200 ease-in-out bg-teal-100 text-teal-700 hover:bg-teal-200 dk:bg-blue-900 dk:text-teal-100 dk-hover:bg-blue-700' +
-                  (index === 1 ? ' ml-4' : '')
+                  (index >= 1 ? ' ml-4' : '')
                 }
               >
                 {tag}
