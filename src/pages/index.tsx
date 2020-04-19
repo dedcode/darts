@@ -14,7 +14,6 @@ type Props = {
 };
 
 export default function IndexPage({ path, data }: Props) {
-  console.log(data);
   return (
     <Layout path={path}>
       <SEO title="Danny Libin Personal Site" />
