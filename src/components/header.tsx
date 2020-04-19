@@ -19,7 +19,7 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
   const activeClassName = ' border-b-2 border-teal-500 dk:border-teal-500';
 
   return (
-    <header className="relative max-w-4xl mx-auto px-6 lg:px-8 text-xl">
+    <header className="relative max-w-4xl mx-auto px-6 lg:px-8 text-xl mt-3">
       <div className="flex items-center justify-between md:h-16">
         <div className="w-full justify-between flex flex-col md:flex-row md:items-center">
           <div className="flex justify-between">
@@ -27,7 +27,6 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
               to="/"
               className="px-3 py-2 rounded-md text-3xl font-medium text-gray-900 dk:text-teal-100"
             >
-              {/* {'{⚔} JS Adventures'} */}
               <span className="flex flex-row items-center">
                 <img src={logoLight} alt="Danny Libin initials logo" />
               </span>
@@ -104,7 +103,7 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
           {/* Mobile Nav Menu */}
           <div
             className={
-              'flex absolute inset-0 justify-center w-full h-screen text-center z-10 md:hidden ' +
+              'flex absolute inset-0 -mt-3 justify-center w-full h-screen text-center z-10 md:hidden ' +
               (menuOpen ? '' : 'hidden')
             }
             style={{
@@ -113,7 +112,7 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
           >
             <button
               onClick={handleMenuOpen}
-              className="transition duration-200 ease-in-out absolute right-0 top-0 mt-2 mr-5 inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-teal-500 focus:outline-none focus:text-white"
+              className="transition duration-200 ease-in-out absolute right-0 top-0 mt-5 mr-5 inline-flex items-center justify-center p-2 rounded-md text-gray-100 hover:text-teal-500 focus:outline-none focus:text-white"
             >
               <svg
                 className="h-6 w-6"
