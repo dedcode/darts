@@ -63,6 +63,7 @@ const PostsPage = ({ path }: Props) => {
               key={index}
               target="_blank"
               href={`${qiqBaseURL}/topics?topic=${tag}`}
+              className="my-1"
             >
               <span
                 className={
@@ -77,11 +78,13 @@ const PostsPage = ({ path }: Props) => {
 
       return (
         <div className="mt-12" key={index}>
-          <div className="mb-4">{postTags}</div>
+          <div className="mb-4 flex flex-wrap">{postTags}</div>
           <a target="_blank" href={`${qiqBaseURL}${post.slug}`}>
             <h2 className="my-2">{post.title}</h2>
-            <div className="mb-8 text-gray-700 dk:text-gray-500 flex">
-              <span className="mr-2">{post.date} • </span>
+            <div className="mb-8 text-gray-700 dk:text-gray-500 flex flex-col sm:flex-row sm:text-center">
+              <span className="mr-2">
+                {post.date} <span className="hidden sm:inline-block">•</span>{' '}
+              </span>
               <span className="flex items-center">
                 <span className="flex mr-2">{hearts}</span> {post.timeToRead}{' '}
                 minute read
