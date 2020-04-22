@@ -17,7 +17,7 @@ export default function ProjectsPage({ path, data }: Props) {
       <SEO title="Projects" />
       <div className="mt-20 mb-12">
         <h1>Some of my projects</h1>
-        <div className="bg-gray-100 p-12 rounded-lg lg:-mx-20">
+        <div className="bg-gray-100 p-3 md:p-12 rounded-lg lg:-mx-20">
           <div className="bg-white">
             <div className="shadow-md rounded-lg hover:shadow-xl transition-shadow duration-300">
               <div className="flex flex-col items-center justify-center">
@@ -54,14 +54,14 @@ export default function ProjectsPage({ path, data }: Props) {
           </div>
           <div className="mt-10 bg-white">
             <div className="shadow-md rounded-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="flex items-center justify-center">
-                <div className="w-1/3 hidden md:flex justify-center">
+              <div className="flex flex-col md:flex-row items-center justify-center">
+                <div className="w-1/3 flex justify-center">
                   <div className="w-24">
                     <a href="https://questsincode.com" target="_blank">
                       <Image
                         className="rounded-lg z-0 hover:opacity-50 transition-opacity ease-in-out duration-300"
                         fluid={data.qiq.childImageSharp.fluid}
-                        alt="CCAW project screencap"
+                        alt="Quests In Code pixel shield logo"
                       />
                     </a>
                   </div>
@@ -84,7 +84,8 @@ export default function ProjectsPage({ path, data }: Props) {
                   </div>
                   <p>My blog site where I write about my coding journey.</p>
                   <p>
-                    Like this site, created with Gatsby and hosted on Netlify.
+                    Like this site, created with React, Gatsby and hosted on
+                    Netlify.
                   </p>
                 </div>
               </div>

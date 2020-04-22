@@ -103,7 +103,7 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
           {/* Mobile Nav Menu */}
           <div
             className={
-              'flex absolute inset-0 -mt-3 justify-center w-full h-screen text-center z-10 md:hidden ' +
+              'flex absolute z-50 inset-0 -mt-3 justify-center w-full h-screen text-center md:hidden ' +
               (menuOpen ? '' : 'hidden')
             }
             style={{
