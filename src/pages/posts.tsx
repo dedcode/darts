@@ -21,6 +21,7 @@ type Posts = {
 
 const PostsPage = ({ path }: Props) => {
   const [posts, setPosts] = useState<Posts>(null);
+  const [tagList, setTagList] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   const qiqBaseURL =
@@ -31,8 +32,14 @@ const PostsPage = ({ path }: Props) => {
   useEffect(() => {
     fetch(`${qiqBaseURL}/postsMetaData.json`)
       .then(res => res.json())
-      .then(data => {
+      .then((data: Posts) => {
+        // data.sort((a, b) => (a.date > b.date ? -1 : 1));
+        let tagList: string[] = [];
+        data.map(post => (tagList = tagList.concat(post.tags)));
+        tagList = [...new Set(tagList)];
+        tagList.sort();
         setPosts(data);
+        setTagList(tagList);
         setLoading(false);
       });
   }, []);
@@ -44,7 +51,7 @@ const PostsPage = ({ path }: Props) => {
   ) : (
     posts.map((post, index) => {
       const hearts: JSX.IntrinsicElements['img'][] = [];
-      for (let i = 0; i < Math.ceil(post.timeToRead / 5); i++) {
+      for (let i = 0; i < Math.ceil(post.timeToRead / 3); i++) {
         hearts.push(
           <img
             key={i}
@@ -56,9 +63,9 @@ const PostsPage = ({ path }: Props) => {
         );
       }
 
-      const postTags = !post.tags.length
+      const postTags = !tagList.length
         ? null
-        : post.tags.map((tag, index) => (
+        : tagList.map((tag, index) => (
             <a
               key={index}
               target="_blank"
