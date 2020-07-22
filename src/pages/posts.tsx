@@ -21,7 +21,6 @@ type Posts = {
 
 const PostsPage = ({ path }: Props) => {
   const [posts, setPosts] = useState<Posts>(null);
-  const [tagList, setTagList] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
   const qiqBaseURL =
@@ -34,12 +33,7 @@ const PostsPage = ({ path }: Props) => {
       .then(res => res.json())
       .then((data: Posts) => {
         // data.sort((a, b) => (a.date > b.date ? -1 : 1));
-        let tagList: string[] = [];
-        data.map(post => (tagList = tagList.concat(post.tags)));
-        tagList = [...new Set(tagList)];
-        tagList.sort();
         setPosts(data);
-        setTagList(tagList);
         setLoading(false);
       });
   }, []);
@@ -63,9 +57,9 @@ const PostsPage = ({ path }: Props) => {
         );
       }
 
-      const postTags = !tagList.length
+      const postTags = !post.tags.length
         ? null
-        : tagList.map((tag, index) => (
+        : post.tags.map((tag, index) => (
             <a
               key={index}
               target="_blank"
