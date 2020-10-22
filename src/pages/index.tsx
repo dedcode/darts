@@ -51,10 +51,10 @@ export default function IndexPage({ path, data }: Props) {
           </p>
           <p>Feel free to reach out!</p>
           <span className="flex -mt-2 mb-16">
-            <a href="https://github.com/daynil" target="_blank" rel="me">
+            <a href="https://github.com/Daynil" target="_blank" rel="me">
               <GithubIcon className="w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
             </a>
-            <a href="https://twitter.com/day1l" target="_blank" rel="me">
+            <a href="https://twitter.com/Day1l" target="_blank" rel="me">
               <TwitterIcon className="ml-4 w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
             </a>
             <a
