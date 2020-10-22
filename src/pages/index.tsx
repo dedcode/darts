@@ -51,17 +51,17 @@ export default function IndexPage({ path, data }: Props) {
           </p>
           <p>Feel free to reach out!</p>
           <span className="flex -mt-2 mb-16">
-            <a href="https://github.com/daynil" target="_blank" rel="noopener">
+            <a href="https://github.com/daynil" target="_blank" rel="me">
               <GithubIcon className="w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
             </a>
-            <a href="https://twitter.com/day1l" target="_blank" rel="noopener">
+            <a href="https://twitter.com/day1l" target="_blank" rel="me">
               <TwitterIcon className="ml-4 w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
             </a>
             <a
               className="flex items-center"
               href="mailto:dlibinrx@gmail.com"
               target="_blank"
-              rel="noopener"
+              rel="me"
             >
               <MailIcon className="ml-4 mr-2 w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
               <span className="border-b-2 border-teal-500 text-gray-900 dk:text-gray-300 dk-hover:text-teal-500 hover:text-teal-500 hover:border-transparent transition duration-200 ease-in-out">
