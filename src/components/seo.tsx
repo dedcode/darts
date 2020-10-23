@@ -1,7 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
-import { SeoMetadataQuery } from '../../graphql-types';
 
 type Props = {
   title: string;
@@ -14,7 +13,7 @@ const defaultProps = {
 };
 
 const SEO = ({ description, lang, meta, title }: Props) => {
-  const { site } = useStaticQuery<SeoMetadataQuery>(
+  const { site } = useStaticQuery(
     graphql`
       query SEOMetadata {
         site {

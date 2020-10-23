@@ -35,7 +35,6 @@ module.exports = {
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
     'gatsby-plugin-typescript',
-    'gatsby-plugin-graphql-codegen',
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {

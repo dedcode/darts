@@ -81,13 +81,13 @@ export default function Header({ path, menuOpen, handleMenuOpen }: Props) {
               >
                 Projects
               </Link>
-              {/* <Link
-                to="/about/"
+              <Link
+                to="/lab/"
                 className={navClassName}
                 activeClassName={navClassName + activeClassName}
               >
-                About
-              </Link> */}
+                Lab
+              </Link>
               {/* <button
                 className="transition duration-200 ease-in-out ml-4 px-3 py-2 text-xl font-medium text-gray-900 border-b-2 border-transparent dk:text-gray-100 dk-hover:text-teal-400 hover:text-teal-500 hover:text-teal-500 focus:outline-none self-center hover:border-transparent"
                 onClick={handleDarkSwitch}

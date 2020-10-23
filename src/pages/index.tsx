@@ -1,7 +1,6 @@
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
 import React from 'react';
-import { IndexQuery } from '../../graphql-types';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import GithubIcon from '../components/svg/github-icon';
@@ -10,7 +9,7 @@ import TwitterIcon from '../components/svg/twitter-icon';
 
 type Props = {
   path: string;
-  data: IndexQuery;
+  data: any;
 };
 
 export default function IndexPage({ path, data }: Props) {
