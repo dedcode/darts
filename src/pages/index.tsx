@@ -44,9 +44,8 @@ export default function IndexPage({ path, data }: Props) {
             development and game development with Unity.
           </p>
           <p>
-            In my other life, I'm a pharmacist 👨‍⚕️ (get your flu shot 💉!!). When
-            I'm not slinging pills 💊💊 or coding, I love to bike, cook, and
-            game with friends.
+            In my other life, I'm a pharmacist 👨‍⚕️ (get your flu shot 💉!!)
+            slinging pills 💊💊.
           </p>
           <p>Feel free to reach out!</p>
           <span className="flex -mt-2 mb-16">
