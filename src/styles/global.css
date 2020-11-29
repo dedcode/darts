@@ -1,4 +1,3 @@
-/*! purgecss start ignore */
 @tailwind base;
 
 body {
@@ -37,9 +36,6 @@ ul {
   @apply list-disc list-inside mb-6;
 }
 
-@import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap&text=DannyLibin');
-
 @tailwind components;
-/*! purgecss end ignore */
 
 @tailwind utilities;

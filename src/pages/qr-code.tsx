@@ -1,14 +1,9 @@
 import qrcode from 'qrcode';
 import React, { useEffect, useRef, useState } from 'react';
-import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TextLink from '../components/text-link';
 
-type Props = {
-  path: string;
-};
-
-const QRCodePage = ({ path }: Props) => {
+export default function QRCodePage() {
   const txtCanvasRef = useRef<HTMLCanvasElement>(null);
   const wifiCanvasRef = useRef<HTMLCanvasElement>(null);
   const [qrText, setQrText] = useState(`Hey, I'm a QR Code!! 😎`);
@@ -32,7 +27,7 @@ const QRCodePage = ({ path }: Props) => {
   }, [qrWifi]);
 
   return (
-    <Layout path={path}>
+    <div>
       <SEO
         title="QR Code Generator"
         description="A QR Code generator for fun"
@@ -57,7 +52,7 @@ const QRCodePage = ({ path }: Props) => {
             rows={3}
             cols={30}
             onChange={e => setQrText(e.target.value)}
-            className="bg-gray-300 border-gray-500 border-2 px-2"
+            className="px-2 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
           >
             Hey, I'm a QR Code!! 😎
           </textarea>
@@ -84,7 +79,7 @@ const QRCodePage = ({ path }: Props) => {
               type="text"
               id="ssid"
               onChange={e => setSsid(e.target.value)}
-              className="bg-gray-300 border-gray-500 border-2 px-2 w-64"
+              className="px-2 w-64 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
             />
           </div>
           <div className="flex flex-col">
@@ -97,6 +92,7 @@ const QRCodePage = ({ path }: Props) => {
                 name="encryption"
                 value="WPA"
                 id="wpa"
+                className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'WPA'}
                 onChange={e => setEncryption(e.target.value)}
               />
@@ -110,6 +106,7 @@ const QRCodePage = ({ path }: Props) => {
                 name="encryption"
                 value="WEP"
                 id="wep"
+                className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'WEP'}
                 onChange={e => setEncryption(e.target.value)}
               />
@@ -123,6 +120,7 @@ const QRCodePage = ({ path }: Props) => {
                 name="encryption"
                 value="nopass"
                 id="none"
+                className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'nopass'}
                 onChange={e => setEncryption(e.target.value)}
               />
@@ -138,7 +136,7 @@ const QRCodePage = ({ path }: Props) => {
                 type="password"
                 id="key"
                 onChange={e => setKey(e.target.value)}
-                className="bg-gray-300 border-gray-500 border-2 px-2 w-64"
+                className="px-2 w-64 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
               />
             </div>
             <button
@@ -153,8 +151,6 @@ const QRCodePage = ({ path }: Props) => {
         </div>
         <canvas ref={wifiCanvasRef} className="mt-2 ml-8"></canvas>
       </div>
-    </Layout>
+    </div>
   );
-};
-
-export default QRCodePage;
+}

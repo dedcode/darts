@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../components/layout';
+import ReadHearts from '../components/read-hearts';
 import SEO from '../components/seo';
 import SpinnerIcon from '../components/svg/spinner-icon';
 import TextLink from '../components/text-link';
-import heart from '../content/assets/images/heart-large.png';
-
-type Props = {
-  path: string;
-};
 
 type Posts = {
   excerpt: string;
@@ -19,14 +14,19 @@ type Posts = {
   slug: string;
 }[];
 
-const PostsPage = ({ path }: Props) => {
+export interface ImageMeta {
+  fileName: string;
+  relativePath: string;
+  width: number;
+  height: number;
+  imgBase64: string;
+}
+
+export default function PostsPage() {
   const [posts, setPosts] = useState<Posts>(null);
   const [loading, setLoading] = useState(true);
 
-  const qiqBaseURL =
-    process.env.NODE_ENV === 'production'
-      ? 'https://questsincode.com'
-      : 'http://localhost:8001';
+  const qiqBaseURL = 'https://questsincode.com';
 
   useEffect(() => {
     fetch(`${qiqBaseURL}/postsMetaData.json`)
@@ -44,19 +44,6 @@ const PostsPage = ({ path }: Props) => {
     </div>
   ) : (
     posts.map((post, index) => {
-      const hearts: JSX.IntrinsicElements['img'][] = [];
-      for (let i = 0; i < Math.ceil(post.timeToRead / 3); i++) {
-        hearts.push(
-          <img
-            key={i}
-            src={heart}
-            alt="Pixel heart"
-            style={{ height: '24px' }}
-            className={i > 0 ? 'ml-1' : ''}
-          />
-        );
-      }
-
       const postTags = !post.tags.length
         ? null
         : post.tags.map((tag, index) => (
@@ -80,15 +67,17 @@ const PostsPage = ({ path }: Props) => {
       return (
         <div className="mt-12" key={index}>
           <div className="mb-4 flex flex-wrap">{postTags}</div>
-          <a target="_blank" href={`${qiqBaseURL}${post.slug}`}>
+          <a target="_blank" href={`${qiqBaseURL}/posts/${post.slug}`}>
             <h2 className="my-2">{post.title}</h2>
             <div className="mb-8 text-gray-700 dk:text-gray-500 flex flex-col sm:flex-row sm:text-center">
               <span className="mr-2">
                 {post.date} <span className="hidden sm:inline-block">•</span>{' '}
               </span>
               <span className="flex items-center">
-                <span className="flex mr-2">{hearts}</span> {post.timeToRead}{' '}
-                minute read
+                <span className="flex mr-2">
+                  <ReadHearts readTimeMins={post.timeToRead} />
+                </span>{' '}
+                {post.timeToRead} minute read
               </span>
             </div>
             <p className="-mt-2">
@@ -101,7 +90,7 @@ const PostsPage = ({ path }: Props) => {
   );
 
   return (
-    <Layout path={path}>
+    <div>
       <SEO title="Posts - Danny Libin" />
       <h1 className="text-center mt-20 text-3xl">
         I blog about my coding journey over at{' '}
@@ -111,8 +100,6 @@ const PostsPage = ({ path }: Props) => {
         . Check out some of my latest posts below.
       </h1>
       <div className="mt-20">{postsIndex}</div>
-    </Layout>
+    </div>
   );
-};
-
-export default PostsPage;
+}

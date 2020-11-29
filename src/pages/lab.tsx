@@ -1,16 +1,10 @@
 import React from 'react';
-import Layout from '../components/layout';
 import SEO from '../components/seo';
 import TextLink from '../components/text-link';
 
-type Props = {
-  path: string;
-  data: any;
-};
-
-export default function LabPage({ path, data }: Props) {
+export default function LabPage() {
   return (
-    <Layout path={path}>
+    <div>
       <SEO title="Lab" />
       <div className="mt-20 mb-12">
         <h1>Some fun experiments 👨‍🔬🧪</h1>
@@ -20,6 +14,6 @@ export default function LabPage({ path, data }: Props) {
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }

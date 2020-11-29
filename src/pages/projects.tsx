@@ -1,19 +1,16 @@
-import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import { InferGetStaticPropsType } from 'next';
 import React from 'react';
-import Layout from '../components/layout';
+import BlurImage from '../components/blur-image';
 import SEO from '../components/seo';
 import GithubIcon from '../components/svg/github-icon';
 import TextLink from '../components/text-link';
+import { getRouteImageMeta } from '../utils/image-api';
 
-type Props = {
-  path: string;
-  data: any;
-};
-
-export default function ProjectsPage({ path, data }: Props) {
+export default function ProjectsPage({
+  imgMeta
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout path={path}>
+    <div>
       <SEO title="Projects" />
       <div className="mt-20 mb-12">
         <h1>Some of my projects</h1>
@@ -23,9 +20,9 @@ export default function ProjectsPage({ path, data }: Props) {
               <div className="flex flex-col items-center justify-center">
                 <div className="w-full">
                   <a href="https://rxverisure.com/" target="_blank">
-                    <Image
+                    <BlurImage
+                      {...imgMeta['rxverisure2.png']}
                       className="rounded-lg z-0 hover:opacity-50 transition-opacity ease-in-out duration-300"
-                      fluid={data.rxverisure.childImageSharp.fluid}
                       alt="RxVeriSure project screencap"
                     />
                   </a>
@@ -58,9 +55,9 @@ export default function ProjectsPage({ path, data }: Props) {
                 <div className="w-1/3 flex justify-center">
                   <div className="w-24">
                     <a href="https://questsincode.com" target="_blank">
-                      <Image
+                      <BlurImage
+                        {...imgMeta['logo-large.png']}
                         className="rounded-lg z-0 hover:opacity-50 transition-opacity ease-in-out duration-300"
-                        fluid={data.qiq.childImageSharp.fluid}
                         alt="Quests In Code pixel shield logo"
                       />
                     </a>
@@ -84,7 +81,7 @@ export default function ProjectsPage({ path, data }: Props) {
                   </div>
                   <p>My blog site where I write about my coding journey.</p>
                   <p>
-                    Like this site, created with React, Gatsby and hosted on
+                    Like this site, created with React, Next.js and hosted on
                     Netlify.
                   </p>
                 </div>
@@ -99,9 +96,9 @@ export default function ProjectsPage({ path, data }: Props) {
                     href="https://github.com/Daynil/ccaw-angcli"
                     target="_blank"
                   >
-                    <Image
+                    <BlurImage
+                      {...imgMeta['ccaw2.png']}
                       className="rounded-lg z-0 hover:opacity-50 transition-opacity ease-in-out duration-300"
-                      fluid={data.ccaw.childImageSharp.fluid}
                       alt="CCAW project screencap"
                     />
                   </a>
@@ -161,32 +158,14 @@ export default function ProjectsPage({ path, data }: Props) {
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }
 
-export const query = graphql`
-  query Projects {
-    rxverisure: file(absolutePath: { regex: "/rxverisure2.png/" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
+export async function getStaticProps() {
+  return {
+    props: {
+      imgMeta: await getRouteImageMeta('projects')
     }
-    qiq: file(absolutePath: { regex: "/logo-large.png/" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-    ccaw: file(absolutePath: { regex: "/ccaw2.png/" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid
-        }
-      }
-    }
-  }
-`;
+  };
+}

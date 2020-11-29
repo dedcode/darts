@@ -1,29 +1,26 @@
-import { graphql } from 'gatsby';
-import Image from 'gatsby-image';
+import { InferGetStaticPropsType } from 'next';
 import React from 'react';
-import Layout from '../components/layout';
+import BlurImage from '../components/blur-image';
 import SEO from '../components/seo';
 import GithubIcon from '../components/svg/github-icon';
 import MailIcon from '../components/svg/mail-icon';
 import TwitterIcon from '../components/svg/twitter-icon';
+import { getRouteImageMeta } from '../utils/image-api';
 
-type Props = {
-  path: string;
-  data: any;
-};
-
-export default function IndexPage({ path, data }: Props) {
+export default function IndexPage({
+  imgMeta
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Layout path={path}>
+    <div>
       <SEO title="Danny Libin Personal Site" />
       <div className="mt-20 text-center">
         <h1>Hi! I'm Danny Libin.</h1>
       </div>
       <div className="flex flex-col md:flex-row mt-16">
-        <div className="mr-8 mb-6 flex justify-center">
-          <Image
+        <div className="mr-8 mb-6 flex justify-center w-48">
+          <BlurImage
+            {...imgMeta['about-pic.jpg']}
             className="rounded-lg z-0"
-            fixed={data.avatar.childImageSharp.fixed}
             alt="Picture of Danny, smiling as best he can"
           />
         </div>
@@ -69,18 +66,14 @@ export default function IndexPage({ path, data }: Props) {
           </span>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 }
 
-export const query = graphql`
-  query Index {
-    avatar: file(absolutePath: { regex: "/about-pic.jpg/" }) {
-      childImageSharp {
-        fixed(width: 180) {
-          ...GatsbyImageSharpFixed
-        }
-      }
+export async function getStaticProps() {
+  return {
+    props: {
+      imgMeta: await getRouteImageMeta('')
     }
-  }
-`;
+  };
+}
