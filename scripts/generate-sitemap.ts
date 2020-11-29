@@ -29,7 +29,7 @@ export async function generateSitemap() {
           const route = path === 'index' ? '' : `${path}/`;
           return `
           <url>
-            <loc>https://questsincode.com/${route}</loc>
+            <loc>https://dlibin.net/${route}</loc>
             <changefreq>daily</changefreq>
             <priority>0.7</priority>
           </url>
