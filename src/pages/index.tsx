@@ -26,8 +26,8 @@ export default function IndexPage({
         </div>
         <div className="flex flex-col">
           <p className="-mt-4">
-            I'm a software developer making awesome apps for fun and to learn. I
-            got into coding completely on a whim{' '}
+            I'm a software developer making awesome apps to learn and have fun.
+            I got into coding completely on a whim{' '}
             {+((+new Date() - +new Date('2013-03-01')) / 3.154e10).toFixed(4)}{' '}
             years ago (yes, I keep track 🤓) and ended up addicted. Coding is
             more than just a powerful tool. It's an adventure, a construct of
@@ -35,14 +35,14 @@ export default function IndexPage({
           </p>
           <p>
             I'm most familiar with the Typescript/Javascript ecosystem,
-            including React, Angular, and Node.js. I dabble in process
-            automation and data analytics with SQL, VBA, and Python. I've also
-            used Java for native Android development, and C# for native Windows
-            development and game development with Unity.
+            including React, Angular, and Node.js. I'm also well versed in
+            process automation and data analytics with SQL and VBA, and dabble
+            in Python. I've also used Java for native Android development, and
+            C# for native Windows development and game development with Unity.
           </p>
           <p>
-            In my other life, I'm a pharmacist 👨‍⚕️ (get your flu shot 💉!!)
-            slinging pills 💊💊.
+            In my other life, I'm a pharmacist 👨‍⚕️ (get your flu (and COVID)
+            shots 💉!!) slinging pills 💊💊.
           </p>
           <p>Feel free to reach out!</p>
           <span className="flex -mt-2 mb-16">
