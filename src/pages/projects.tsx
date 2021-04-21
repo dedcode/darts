@@ -20,6 +20,7 @@ export default function ProjectsPage({
             imageMeta={imgMeta['fiportfoliodoc.png']}
             projectTitle="FI Portfolio Doctor"
             projectUrl="https://fiportfoliodoc.com/"
+            github="https://github.com/Daynil/portfolio-doctor"
             projectDescription={
               <>
                 <p>
@@ -101,8 +102,8 @@ export default function ProjectsPage({
                   </div>
                 </div>
                 <div className="flex flex-col ml-6 px-6 pt-4 w-11/12 md:w-2/3">
-                  <div className="flex">
-                    <h2 className="mt-0">
+                  <div className="flex items-center mt-2 mb-8">
+                    <h2 className="m-0">
                       <TextLink href="https://questsincode.com">
                         Quests In Code Blog
                       </TextLink>
@@ -113,7 +114,7 @@ export default function ProjectsPage({
                       rel="noopener"
                       className="ml-4"
                     >
-                      <GithubIcon className="w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
+                      <GithubIcon className="w-8 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
                     </a>
                   </div>
                   <p>My blog site where I write about my coding journey.</p>

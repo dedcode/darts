@@ -2,6 +2,7 @@ import React from 'react';
 import { ImageMeta } from '../pages/posts';
 import { clsx } from '../utils/util';
 import BlurImage from './blur-image';
+import GithubIcon from './svg/github-icon';
 import TextLink from './text-link';
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
   projectUrl: string;
   projectDescription: React.ReactNode;
   className?: string;
+  github?: string;
 };
 
 export function PortfolioProject({
@@ -17,7 +19,8 @@ export function PortfolioProject({
   projectTitle,
   projectDescription,
   projectUrl,
-  className
+  className,
+  github
 }: Props) {
   return (
     <div className={clsx('bg-white', className)}>
@@ -33,9 +36,21 @@ export function PortfolioProject({
             </a>
           </div>
           <div className="flex flex-col ml-6 px-6 pt-4">
-            <h2 className="mt-2">
-              <TextLink href={projectUrl}>{projectTitle}</TextLink>
-            </h2>
+            <div className="flex items-center mt-2 mb-6">
+              <h2 className="m-0">
+                <TextLink href={projectUrl}>{projectTitle}</TextLink>
+              </h2>
+              {github && (
+                <a
+                  href="https://github.com/Daynil/quests-in-code"
+                  target="_blank"
+                  rel="noopener"
+                  className="ml-4"
+                >
+                  <GithubIcon className="w-8 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
+                </a>
+              )}
+            </div>
             {projectDescription}
           </div>
         </div>
