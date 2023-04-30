@@ -15,13 +15,14 @@ export async function generateSitemap() {
     `!${pathToPages}/_*.{tsx,jsx,ts,js}`,
     `!${pathToPages}/404.{tsx,jsx,ts,js}`,
     `!${pathToPages}/posts/*`,
-    `${pathToPosts}/*.{md,mdx}`
+    `${pathToPosts}/*.{md,mdx}`,
+    `!${pathToPosts}/DRAFT-*`
   ]);
   const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${pages
-        .map(page => {
+        .map((page) => {
           const path = page
             .replace(/\.mdx|\.md|\.tsx|\.jsx|\.ts|\.ts/gm, '')
             .replace(pathToPosts, 'posts')

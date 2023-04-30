@@ -12,7 +12,7 @@ export type PostMatter = {
   tags: string[];
   date: string;
   description: string;
-  draft?: boolean;
+  draft: boolean;
 };
 
 export interface ImageMeta {
@@ -83,6 +83,11 @@ export default function PostsPage({
               </span>{' '}
               {post.timeToRead} minute read
             </span>
+            {post.draft && (
+              <span className="ml-2 rounded-full bg-red-200 px-4 py-1 text-sm font-bold text-red-500">
+                Draft
+              </span>
+            )}
           </div>
           <p className="-mt-2">{post.description}</p>
         </Link>

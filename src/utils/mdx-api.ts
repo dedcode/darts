@@ -25,6 +25,7 @@ export function getPostsInfo() {
       return {
         slug,
         timeToRead: getTimeToRead(matterResult.content),
+        draft: slug.startsWith('DRAFT-'),
         ...(matterResult.data as PostMatter)
       };
     })
@@ -87,6 +88,7 @@ export async function getPostBySlug(slug: string) {
       ? imgMeta['featuredImage.png']
       : null,
     timeToRead: getTimeToRead(content),
+    draft: slug.startsWith('DRAFT-'),
     ...(data as PostMatter)
   };
 }

@@ -63,7 +63,25 @@ export default function BlogPost({
           await fetch(webmentionUrl.substr(0, webmentionUrl.length - 1))
         ).json();
         // Remove duplicates in case there are any
-        const webmentions = Array.from(new Set([...res.links, ...res2.links]));
+        let webmentions = Array.from(new Set([...res.links, ...res2.links]));
+
+        // For posts before 3/1/21, also grab webmentions from my old domain
+        // and combine
+        if (new Date(post.date) <= new Date('2021-03-01')) {
+          const webmentionUrl = `https://webmention.io/api/mentions.json?per-page=1000&page=0&target=${postUrl.replace(
+            'https://dlibin.net',
+            'https://questsincode.com'
+          )}`;
+          const res = await (await fetch(webmentionUrl)).json();
+          // Trailing slash issue is infuriating, just grab with and without slash results and combine
+          const res2 = await (
+            await fetch(webmentionUrl.substr(0, webmentionUrl.length - 1))
+          ).json();
+          webmentions = Array.from(
+            new Set([...webmentions, ...res.links, ...res2.links])
+          );
+        }
+
         setWebmentions(webmentions);
       } catch (e) {
         console.log('Failed to get webmentions', e);
@@ -170,6 +188,11 @@ export default function BlogPost({
                 </span>{' '}
                 {post.timeToRead} minute read
               </span>
+              {post.draft && (
+                <span className="ml-2 rounded-full bg-red-200 px-4 py-1 text-sm font-bold text-red-500">
+                  Draft
+                </span>
+              )}
             </div>
           </div>
           {!post.featuredImageMeta ? null : (
@@ -195,7 +218,7 @@ export default function BlogPost({
           className="mt-12 flex flex-row"
         >
           <TwitterIcon className="w-24 text-teal-500 transition-colors duration-150 ease-in-out hover:text-teal-300" />
-          <span className="ml-4 rounded-md bg-teal-200 p-4 text-2xl text-teal-800 transition-colors duration-150 hover:bg-teal-100 hover:text-teal-700 dark:bg-teal-800 dark:text-teal-100 hover:dark:bg-teal-300 hover:dark:text-teal-50">
+          <span className="ml-4 rounded-md bg-teal-200 p-4 text-2xl text-teal-800 transition-colors duration-150 hover:bg-teal-100 hover:text-teal-700 dark:bg-teal-800 dark:text-teal-100 dark:hover:bg-teal-600 hover:dark:text-teal-50">
             Found this article useful? Click to share, discuss and spread the
             word!! 🎉
           </span>
