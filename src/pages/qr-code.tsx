@@ -65,7 +65,7 @@ export default function QRCodePage() {
         You can also create a QR code for your WiFi information. Scanning it
         will connect you to the associated network, if it is in range. The QR
         code is generated entirely client side, you can{' '}
-        <TextLink href="https://github.com/Daynil/dlibin-gatsby/blob/master/src/pages/qr-code.tsx">
+        <TextLink href="https://github.com/Daynil/dlibin-gatsby/blob/main/src/pages/qr-code.tsx">
           vet the code here
         </TextLink>
         .
