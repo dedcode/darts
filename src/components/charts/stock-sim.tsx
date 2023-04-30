@@ -1,9 +1,10 @@
-import { csv, deviation, format as numFormat, mean } from 'd3';
+import { csv, deviation, mean, format as numFormat } from 'd3';
 import { format as dateFormat, parse } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getQuantiles } from '../../utils/data-helpers';
 import { normSinv } from '../../utils/normSinv';
-import { defaultLineStyles, LinesChart } from './lines-chart';
+import Button from '../button';
+import { LinesChart, defaultLineStyles } from './lines-chart';
 
 type Props = {
   chartType:
@@ -30,7 +31,7 @@ export function StockSim({ chartType }: Props) {
     let stockDayPcntChange: number[] = [];
 
     const data2019 = data.filter(
-      data => new Date(data.Date).getFullYear() === 2019
+      (data) => new Date(data.Date).getFullYear() === 2019
     );
 
     // Start at second day
@@ -59,12 +60,12 @@ export function StockSim({ chartType }: Props) {
 
   function project2020Prices(data: StockValue[], stats: StockStats) {
     const data2019 = data.filter(
-      data => new Date(data.Date).getFullYear() === 2019
+      (data) => new Date(data.Date).getFullYear() === 2019
     );
     const last2019Price = data2019[data2019.length - 1];
 
     const data2020 = data.filter(
-      data => new Date(data.Date).getFullYear() === 2020
+      (data) => new Date(data.Date).getFullYear() === 2020
     );
 
     const projection2020: StockValue[] = [
@@ -108,7 +109,7 @@ export function StockSim({ chartType }: Props) {
     const quantiles = [0.1, 0.25, 0.5, 0.75, 0.9];
     const projectionQuantiles = getQuantiles(
       projections,
-      d => d.Close,
+      (d) => d.Close,
       quantiles
     );
 
@@ -128,11 +129,11 @@ export function StockSim({ chartType }: Props) {
       const csvData = await csv(
         '/data/posts/stock-market-simulation-javascript/GOOG.csv'
       );
-      const data = (csvData.map(day => ({
+      const data = csvData.map((day) => ({
         DataType: 'Ref',
         Date: parse(day.Date, 'M/d/yyyy', new Date()).getTime(),
         Close: parseFloat(day.Close)
-      })) as unknown) as StockValue[];
+      })) as unknown as StockValue[];
 
       setStockData(data);
 
@@ -153,15 +154,15 @@ export function StockSim({ chartType }: Props) {
   function stockTooltip(d: StockValue, name: string) {
     if (!d) return;
     return (
-      <div className="inline-block p-6 text-gray-800 bg-gray-50 shadow-md rounded-md">
-        <div className="text-center mb-2 font-bold">{name}</div>
+      <div className="inline-block rounded-md bg-gray-50 p-6 text-gray-800 shadow-md">
+        <div className="mb-2 text-center font-bold">{name}</div>
         <div className="flex justify-evenly">
           <div className="flex flex-col px-4">
-            <label className="font-semibold my-0">Date</label>
+            <label className="my-0 font-semibold">Date</label>
             <span>{dateFormat(d.Date, 'MMM d, yy')}</span>
           </div>
           <div className="flex flex-col px-4">
-            <label className="font-semibold my-0">Price</label>
+            <label className="my-0 font-semibold">Price</label>
             <span>{numFormat('$,.2f')(d.Close)}</span>
           </div>
         </div>
@@ -175,13 +176,13 @@ export function StockSim({ chartType }: Props) {
         return (
           <LinesChart
             dataSeries={[stockData]}
-            xAccessor={d => d.Date}
-            yAccessor={d => d.Close}
+            xAccessor={(d) => d.Date}
+            yAccessor={(d) => d.Close}
             aspectRatio={1000 / 600}
             options={{
               yDomainNice: true,
-              xFormatTick: d => dateFormat(d, 'MMM d, yy'),
-              yFormatTick: d => numFormat('$.2s')(d),
+              xFormatTick: (d) => dateFormat(d, 'MMM d, yy'),
+              yFormatTick: (d) => numFormat('$.2s')(d),
               getTooltip: stockTooltip,
               hoverDot: true,
               stylizeLine: (line, hovering, hoveringThisLine) => {
@@ -199,23 +200,24 @@ export function StockSim({ chartType }: Props) {
             : [[]];
         return (
           <>
-            <button
-              className="btn btn-green w-44 m-4"
-              onClick={() =>
-                setStockProjData(project2020Prices(stockData, stockStats))
-              }
-            >
-              Rerun simulation
-            </button>
+            <div className="m-4 w-48">
+              <Button
+                onClick={() =>
+                  setStockProjData(project2020Prices(stockData, stockStats))
+                }
+              >
+                Rerun simulation
+              </Button>
+            </div>
             <LinesChart
               dataSeries={linesData}
-              xAccessor={d => d.Date}
-              yAccessor={d => d.Close}
+              xAccessor={(d) => d.Date}
+              yAccessor={(d) => d.Close}
               aspectRatio={1000 / 600}
               options={{
                 yDomainNice: true,
-                xFormatTick: d => dateFormat(d, 'MMM d, yy'),
-                yFormatTick: d => numFormat('$.2s')(d),
+                xFormatTick: (d) => dateFormat(d, 'MMM d, yy'),
+                yFormatTick: (d) => numFormat('$.2s')(d),
                 hoverDot: true,
                 seriesNames: ['Actual', 'Projected'],
                 getTooltip: stockTooltip,
@@ -241,25 +243,26 @@ export function StockSim({ chartType }: Props) {
             : [[]];
         return (
           <>
-            <button
-              className="btn btn-green w-44 m-4"
-              onClick={() =>
-                setStockProjections(
-                  multiProject2020Prices(stockData, stockStats)
-                )
-              }
-            >
-              Rerun simulation
-            </button>
+            <div className="m-4 w-48">
+              <Button
+                onClick={() =>
+                  setStockProjections(
+                    multiProject2020Prices(stockData, stockStats)
+                  )
+                }
+              >
+                Rerun simulation
+              </Button>
+            </div>
             <LinesChart
               dataSeries={linesData}
-              xAccessor={d => d.Date}
-              yAccessor={d => d.Close}
+              xAccessor={(d) => d.Date}
+              yAccessor={(d) => d.Close}
               aspectRatio={1000 / 600}
               options={{
                 yDomainNice: true,
-                xFormatTick: d => dateFormat(d, 'MMM d, yy'),
-                yFormatTick: d => numFormat('$.2s')(d),
+                xFormatTick: (d) => dateFormat(d, 'MMM d, yy'),
+                yFormatTick: (d) => numFormat('$.2s')(d),
                 stylizeLine: (line, hovering, hoveringThisLine) => {
                   const lineStyle = { ...defaultLineStyles };
 
@@ -282,27 +285,28 @@ export function StockSim({ chartType }: Props) {
             ? [stockData, ...stockProjections]
             : [[]];
         return (
-          <div className="flex flex-col items-center w-full">
-            <button
-              className="btn btn-green w-44 m-4"
-              onClick={() =>
-                setStockProjections(
-                  multiProject2020Prices(stockData, stockStats, true)
-                )
-              }
-            >
-              Rerun simulation
-            </button>
-            <div className="flex flex-col items-center w-full">
+          <div className="flex w-full flex-col items-center">
+            <div className="m-4 w-48">
+              <Button
+                onClick={() =>
+                  setStockProjections(
+                    multiProject2020Prices(stockData, stockStats, true)
+                  )
+                }
+              >
+                Rerun simulation
+              </Button>
+            </div>
+            <div className="flex w-full flex-col items-center">
               <LinesChart
                 dataSeries={linesData}
-                xAccessor={d => d.Date}
-                yAccessor={d => d.Close}
+                xAccessor={(d) => d.Date}
+                yAccessor={(d) => d.Close}
                 aspectRatio={1000 / 600}
                 options={{
                   yDomainNice: true,
-                  xFormatTick: d => dateFormat(d, 'MMM d, yy'),
-                  yFormatTick: d => numFormat('$.2s')(d),
+                  xFormatTick: (d) => dateFormat(d, 'MMM d, yy'),
+                  yFormatTick: (d) => numFormat('$.2s')(d),
                   stylizeLine: (line, hovering, hoveringThisLine) => {
                     const lineStyle = { ...defaultLineStyles };
 
@@ -327,8 +331,8 @@ export function StockSim({ chartType }: Props) {
                   }
                 }}
               />
-              <div className="flex flex-row justify-center w-full">
-                <div className="flex flex-row items-center ml-8">
+              <div className="flex w-full flex-row justify-center">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -338,7 +342,7 @@ export function StockSim({ chartType }: Props) {
                   ></div>
                   <div className="ml-2 text-sm">Actual</div>
                 </div>
-                <div className="flex flex-row items-center ml-8">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -348,7 +352,7 @@ export function StockSim({ chartType }: Props) {
                   ></div>
                   <div className="ml-2 text-sm">90th Percentile</div>
                 </div>
-                <div className="flex flex-row items-center ml-8">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -358,7 +362,7 @@ export function StockSim({ chartType }: Props) {
                   ></div>
                   <div className="ml-2 text-sm">75th Percentile</div>
                 </div>
-                <div className="flex flex-row items-center ml-8">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -368,7 +372,7 @@ export function StockSim({ chartType }: Props) {
                   ></div>
                   <div className="ml-2 text-sm">50th Percentile</div>
                 </div>
-                <div className="flex flex-row items-center ml-8">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -378,7 +382,7 @@ export function StockSim({ chartType }: Props) {
                   ></div>
                   <div className="ml-2 text-sm">25th Percentile</div>
                 </div>
-                <div className="flex flex-row items-center ml-8">
+                <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{
                       width: '15px',
@@ -400,7 +404,7 @@ export function StockSim({ chartType }: Props) {
   }
 
   return (
-    <div className="flex flex-col items-center xl:-mx-64 lg:-mx-36">
+    <div className="flex flex-col items-center lg:-mx-36 xl:-mx-64">
       {getChartOfType(chartType)}
     </div>
   );

@@ -1,3 +1,4 @@
+import { expect, test } from 'vitest';
 import { PlanePointCoords } from '../components/charts/lines-chart';
 import {
   getClosestCoordinates,
@@ -6,7 +7,7 @@ import {
   getLongestLineOfEachLeftness,
   getNullFilledLines,
   sortLeftMostThenLongestLine
-} from '../pages/data-helpers';
+} from './data-helpers';
 
 type TestPoint = { x: number; y: number };
 const xAccessor = (point: TestPoint) => point.x;

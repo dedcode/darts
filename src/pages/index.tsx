@@ -22,7 +22,7 @@ export default function IndexPage({
         <div className="mb-6 mr-8 flex justify-center">
           <div>
             <Image
-              src={`${imageMeta.relativePath.replaceAll('\\', '/')}`}
+              src={imageMeta.relativePath.replaceAll('\\', '/')}
               placeholder="blur"
               blurDataURL={imageMeta.imgBase64}
               width={192}
@@ -32,28 +32,31 @@ export default function IndexPage({
             />
           </div>
         </div>
-        <div className="flex w-2/3 flex-col">
+        <div className="mx-auto flex w-2/3 flex-col">
           <p className="-mt-4">
             I'm a software developer making awesome apps to learn and have fun.
             I got into coding completely on a whim{' '}
             {+((+new Date() - +new Date('2013-03-01')) / 3.154e10).toFixed(4)}{' '}
-            years ago (yes, I keep track 🤓) and ended up addicted. Coding is
-            more than just a powerful tool. It's an adventure, a construct of
-            your own imagination, and anything is possible! ⚔️🤠🛡️
+            years ago and quickly ended up addicted. I had never considered
+            myself to be a creative type, but coding has opened up new horizons
+            for me, helping me express my creativity in ways I never thought
+            possible. Coding has become more than just a hobby for me, weaving
+            itself into my life both personal and professional.
           </p>
           <p>
             I'm most familiar with the Typescript/Javascript ecosystem,
             including React, Angular, and Node.js. I'm also well versed in
-            process automation and data analytics with SQL and VBA, and dabble
-            in Python. I've also used Java for native Android development, and
-            C# for native Windows development and game development with Unity.
+            process automation with Python and VBA and data analytics with SQL.
+            I've also dabbled with Go for server-side development. I've used
+            Java for native Android development, and C# for native Windows
+            development and game development with Unity.
           </p>
           <p>
             In my other life, I'm a pharmacist 👨‍⚕️ (get your flu (and COVID)
-            shots 💉!!) slinging pills 💊💊.
+            shots!!) slinging pills 💊💊.
           </p>
           <p>Feel free to reach out!</p>
-          <span className="-mt-2 mb-16 flex">
+          <span className="mb-16 flex">
             <a href="https://github.com/Daynil" target="_blank" rel="me">
               <GithubIcon className="w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
             </a>

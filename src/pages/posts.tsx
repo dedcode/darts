@@ -1,24 +1,18 @@
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import Pill from '../components/pill';
 import ReadHearts from '../components/read-hearts';
 import SEO from '../components/seo';
-import { getPostsMeta } from '../utils/mdx-api';
-
-type Posts = {
-  excerpt: string;
-  timeToRead: number;
-  date: string;
-  description: string;
-  title: string;
-  tags: string[];
-  slug: string;
-}[];
+import { getPostsInfo } from '../utils/mdx-api';
 
 export type PostMatter = {
   title: string;
   tags: string[];
   date: string;
   description: string;
+  draft?: boolean;
 };
 
 export interface ImageMeta {
@@ -32,40 +26,51 @@ export interface ImageMeta {
 export default function PostsPage({
   posts
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // const [posts, setPosts] = useState<Posts>(null);
-  // const [loading, setLoading] = useState(true);
+  let tagList: string[] = [];
+  posts.map((post) => (tagList = tagList.concat(post.tags)));
+  tagList = [...new Set(tagList)];
+  tagList.sort();
+  tagList.unshift('All');
 
-  // const qiqBaseURL = 'https://questsincode.com';
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   fetch(`${qiqBaseURL}/postsMetaData.json`)
-  //     .then((res) => res.json())
-  //     .then((data: Posts) => {
-  //       // data.sort((a, b) => (a.date > b.date ? -1 : 1));
-  //       setPosts(data);
-  //       setLoading(false);
-  //     });
-  // }, []);
+  let initialTopic = 'All';
+  const [selectedTag, setSelectedTag] = useState(initialTopic);
 
-  const postsIndex = posts.map((post, index) => {
+  useEffect(() => {
+    if (router.isReady) {
+      if (router.query) {
+        const filter = router.query.filter as string;
+        setSelectedTag(filter ?? 'All');
+      }
+    }
+  }, [router]);
+
+  const filteredPosts =
+    selectedTag === 'All'
+      ? posts
+      : posts.filter((post) => post.tags.find((tag) => tag === selectedTag));
+
+  const topics = tagList.map((tag, index) => {
+    return (
+      <Link key={index} href={`/posts?filter=${tag}`} className="my-1">
+        <Pill active={selectedTag === tag}>{tag}</Pill>
+      </Link>
+    );
+  });
+
+  const postsIndex = filteredPosts.map((post, index) => {
     const postTags = !post.tags.length
       ? null
       : post.tags.map((tag, index) => (
-          <Link key={index} href={`/topics?topic=${tag}`} className="my-1">
-            <span
-              className={
-                'cursor-pointer rounded-full bg-teal-100 px-4 py-1 text-sm font-semibold tracking-widest text-teal-700 transition duration-200 ease-in-out hover:bg-teal-200 dark:bg-teal-800 dark:text-teal-100 dark:hover:bg-teal-600' +
-                (index >= 1 ? ' ml-4' : '')
-              }
-            >
-              {tag}
-            </span>
+          <Link key={index} href={`/posts?filter=${tag}`} className="my-1">
+            <Pill active={selectedTag === tag}>{tag}</Pill>
           </Link>
         ));
 
     return (
       <div className="mt-12" key={index}>
-        <div className="mb-4 flex flex-wrap">{postTags}</div>
+        <div className="mb-4 flex flex-wrap space-x-4">{postTags}</div>
         <Link href={`/posts/${post.slug}`}>
           <h2 className="my-2">{post.title}</h2>
           <div className="mb-8 flex flex-col text-gray-700 dark:text-gray-400 sm:flex-row sm:text-center">
@@ -88,13 +93,16 @@ export default function PostsPage({
   return (
     <div>
       <SEO title="Posts - Danny Libin" />
-      <div className="mt-20">{postsIndex}</div>
+      <div className="mt-20">
+        <div className="flex flex-wrap space-x-4">{topics}</div>
+        <div>{postsIndex}</div>
+      </div>
     </div>
   );
 }
 
 export async function getStaticProps() {
   return {
-    props: { posts: getPostsMeta() }
+    props: { posts: getPostsInfo().postsMeta }
   };
 }

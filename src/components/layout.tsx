@@ -1,7 +1,10 @@
 import { MDXProvider } from '@mdx-js/react';
+import { Inter } from 'next/font/google';
 import React, { useEffect, useState } from 'react';
 import { mdxComponents } from '../utils/constants';
 import Header from './header';
+
+const inter = Inter({ subsets: ['latin'] });
 
 type Props = {
   children: React.ReactNode;
@@ -51,7 +54,7 @@ const Layout = ({ children }: Props) => {
 
   return (
     <ThemeContext.Provider value={{ darkMode }}>
-      <div>
+      <div className={inter.className}>
         <div className="min-h-screen border-t-4 border-teal-500 transition duration-200 ease-in-out dark:bg-gray-900">
           <Header
             handleDarkSwitch={handleDarkSwitch}

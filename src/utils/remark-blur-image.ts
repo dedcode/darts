@@ -3,7 +3,7 @@ import { Node } from 'hast';
 import visit from 'unist-util-visit';
 import { ImageMeta } from '../pages/posts';
 
-export function blurImage(imgMeta: ImageMeta) {
+export function blurImage(imgMeta: { [key: string]: ImageMeta }) {
   if (!imgMeta) {
     console.error(
       chalk.cyan('RemarkBlurImage - ') + chalk.red('Image meta required!')
@@ -14,7 +14,7 @@ export function blurImage(imgMeta: ImageMeta) {
   function transformer(tree: Node) {
     visit(tree, 'image', visitor);
 
-    function visitor(node: Node) {
+    function visitor(node: any) {
       if (!imgMeta) return;
       const meta = imgMeta[(node.url as string).split('./')[1]];
       if (!meta) {
@@ -25,13 +25,40 @@ export function blurImage(imgMeta: ImageMeta) {
         return;
       }
 
-      node.type = 'jsx';
-      node.value = `<BlurImage
-                      fileName="${meta.fileName}"
-                      relativePath="${meta.relativePath}"
-                      width={${meta.width}}
-                      height={${meta.height}}
-                      imgBase64="${meta.imgBase64}" />`;
+      node.type = 'mdxJsxFlowElement';
+      node.name = 'Image';
+      node.attributes = [
+        {
+          type: 'mdxJsxAttribute',
+          name: 'src',
+          value: meta.relativePath.replaceAll('\\', '/')
+        },
+        {
+          type: 'mdxJsxAttribute',
+          name: 'placeholder',
+          value: 'blur'
+        },
+        {
+          type: 'mdxJsxAttribute',
+          name: 'blurDataURL',
+          value: meta.imgBase64
+        },
+        {
+          type: 'mdxJsxAttribute',
+          name: 'width',
+          value: meta.width
+        },
+        {
+          type: 'mdxJsxAttribute',
+          name: 'height',
+          value: meta.height
+        },
+        {
+          type: 'mdxJsxAttribute',
+          name: 'alt',
+          value: node.alt
+        }
+      ];
     }
   }
 }

@@ -5,18 +5,17 @@ import { join } from 'path';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { ImageMeta, PostMatter } from '../pages/posts';
+import { isProduction } from './constants';
 import { getTimeToRead } from './helpers';
+import { blurImage } from './remark-blur-image';
 import { highlightCodeBlock } from './remark-highlight';
 
-export function getPostSlugs() {
-  const mdxFileNames = fs.readdirSync(join(process.cwd(), 'src', '_posts'));
+export function getPostsInfo() {
+  const slugs = fs
+    .readdirSync(join(process.cwd(), 'src', '_posts'))
+    .map((name) => name.replace('.mdx', ''));
 
-  return mdxFileNames.map((name) => name.replace('.mdx', ''));
-}
-
-export function getPostsMeta() {
-  const slugs = getPostSlugs();
-  return slugs
+  const postsMeta = slugs
     .map((slug) => {
       const fileContents = fs.readFileSync(
         join(process.cwd(), 'src', '_posts', `${slug}.mdx`),
@@ -29,7 +28,14 @@ export function getPostsMeta() {
         ...(matterResult.data as PostMatter)
       };
     })
+    .filter((meta) => {
+      // Filter out draft posts, but only in production
+      if (isProduction && meta.draft) return false;
+      return true;
+    })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  return { slugs, postsMeta };
 }
 
 export async function getPostBySlug(slug: string) {
@@ -67,9 +73,8 @@ export async function getPostBySlug(slug: string) {
   const { content, data } = matter(fileContents);
 
   const mdxSource = await serialize(content, {
-    // source: matterResult.content,
     mdxOptions: {
-      remarkPlugins: [highlightCodeBlock, remarkMath],
+      remarkPlugins: [highlightCodeBlock, [blurImage, imgMeta], remarkMath],
       rehypePlugins: [rehypeKatex]
     },
     scope: data

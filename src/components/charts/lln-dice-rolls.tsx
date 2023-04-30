@@ -1,7 +1,8 @@
 import { mean } from 'd3';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import Button from '../button';
 import TextInput from '../text-input';
-import { defaultLineStyles, LinesChart } from './lines-chart';
+import { LinesChart, defaultLineStyles } from './lines-chart';
 
 type Props = {};
 
@@ -69,14 +70,14 @@ export function LlnDiceRolls({}: Props) {
   function diceTooltip(d: DiceStats) {
     if (!d) return;
     return (
-      <div className="inline-block p-6 bg-gray-50 shadow-md rounded-md">
+      <div className="inline-block rounded-md bg-gray-50 p-6 shadow-md">
         <div className="flex justify-evenly">
           <div className="flex flex-col px-4">
-            <label className="font-semibold my-0">Total Rolls</label>
+            <label className="my-0 font-semibold">Total Rolls</label>
             <span>{d.numRolls}</span>
           </div>
           <div className="flex flex-col px-4">
-            <label className="font-semibold my-0">Mean Roll Value</label>
+            <label className="my-0 font-semibold">Mean Roll Value</label>
             <span>{d.meanRoll}</span>
           </div>
         </div>
@@ -86,35 +87,31 @@ export function LlnDiceRolls({}: Props) {
   return (
     <div className="flex flex-col items-center">
       <div className="flex items-center">
-        <button
-          className="btn btn-green w-36 m-4"
-          onClick={() => generateDiceRolls(+refNumRolls.current.value)}
-        >
-          Roll Dice
-        </button>
+        <div className="m-4 w-40">
+          <Button onClick={() => generateDiceRolls(+refNumRolls.current.value)}>
+            Roll Dice
+          </Button>
+        </div>
         <TextInput
-          className="m-4 pl-4 py-2"
+          className="m-4 py-2 pl-4"
           type="number"
           defaultValue={2}
           min={2}
           max={1000}
           ref={refNumRolls}
-          onChange={e => {
+          onChange={(e) => {
             if (+e.target.value > 10000) e.target.value = '10000';
           }}
         />
         <span className="my-4">times</span>
-        <button
-          className="btn btn-green-2 w-24 m-4 ml-16"
-          onClick={() => setDiceRolls([])}
-        >
-          Reset
-        </button>
+        <div className="m-4 ml-16 w-32">
+          <Button onClick={() => setDiceRolls([])}>Reset</Button>
+        </div>
       </div>
       <LinesChart
         dataSeries={[diceRolls, meanLine]}
-        xAccessor={d => d.numRolls}
-        yAccessor={d => d.meanRoll}
+        xAccessor={(d) => d.numRolls}
+        yAccessor={(d) => d.meanRoll}
         aspectRatio={1000 / 600}
         options={{
           getTooltip: diceTooltip,

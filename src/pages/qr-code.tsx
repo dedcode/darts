@@ -53,7 +53,7 @@ export default function QRCodePage() {
             rows={3}
             cols={30}
             onChange={(e) => setQrText(e.target.value)}
-            className="rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+            className="rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50 dark:text-gray-600"
           >
             Hey, I'm a QR Code!! 😎
           </textarea>
@@ -76,17 +76,10 @@ export default function QRCodePage() {
             <label htmlFor="ssid" className="font-semibold">
               SSID
             </label>
-            {/* TODO: style text inputs for dark */}
             <TextInput
               type="text"
               id="ssid"
               onChange={(e) => setSsid(e.target.value)}
-            />
-            <input
-              type="text"
-              id="ssid"
-              onChange={(e) => setSsid(e.target.value)}
-              className="w-64 rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
             />
           </div>
           <div className="flex flex-col">
@@ -139,11 +132,10 @@ export default function QRCodePage() {
               <label htmlFor="key" className="font-semibold">
                 Key
               </label>
-              <input
+              <TextInput
                 type="password"
                 id="key"
                 onChange={(e) => setKey(e.target.value)}
-                className="w-64 rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
               />
             </div>
             <button

@@ -1,5 +1,5 @@
 import { ScaleLinear } from 'd3';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Dimensions } from '../../utils/hooks';
 import { useChartContext } from './chart';
 
@@ -38,7 +38,7 @@ function AxisBottom({
 
     return scale
       .ticks(numberOfTicksTarget)
-      .map(value => ({ value, xOffset: scale(value) }));
+      .map((value) => ({ value, xOffset: scale(value) }));
   }, [domain.join('-'), range.join('-')]);
   return (
     <g transform={`translate(0,${dimensions.boundedHeight})`} {...props}>
@@ -47,6 +47,7 @@ function AxisBottom({
           x={dimensions.boundedWidth / 2}
           y={dimensions.marginBottom - 15}
           fill="currentColor"
+          className="text-gray-700"
           style={{
             textAnchor: 'middle',
             fontSize: '1rem'
@@ -63,7 +64,7 @@ function AxisBottom({
       {ticks.map(({ value, xOffset }) => (
         <g
           key={value}
-          className="text-gray-600 tracking-wide text-sm"
+          className="text-sm tracking-wide text-gray-600"
           transform={`translate(${xOffset}, 0)`}
         >
           <line y2="6" stroke="currentColor" />
@@ -98,7 +99,7 @@ function AxisLeft({
 
     return scale
       .ticks(numberOfTicksTarget)
-      .map(value => ({ value, yOffset: scale(value) }));
+      .map((value) => ({ value, yOffset: scale(value) }));
   }, [domain.join('-'), range.join('-')]);
   return (
     <g {...props}>
@@ -107,6 +108,7 @@ function AxisLeft({
           x={-dimensions.boundedHeight / 2}
           y={-dimensions.marginLeft + 15}
           fill="currentColor"
+          className="text-gray-700"
           style={{
             transform: 'rotate(-90deg)',
             textAnchor: 'middle',
@@ -124,7 +126,7 @@ function AxisLeft({
       {ticks.map(({ value, yOffset }) => (
         <g
           key={value}
-          className="text-gray-600 tracking-wide text-sm"
+          className="text-sm tracking-wide text-gray-600"
           transform={`translate(0, ${yOffset})`}
         >
           <line x2="-6" stroke="currentColor" />

@@ -30,10 +30,10 @@ export default function ProjectsPage({
                   Other apps of this sort are available, but none scratched my
                   particular itch of quick iteration and deep interactivity. As
                   I built the app, and wrote two interactive{' '}
-                  <TextLink href="https://questsincode.com/posts/monte-carlo-simulation-javascript">
+                  <TextLink href="/posts/monte-carlo-simulation-javascript">
                     accompanying
                   </TextLink>{' '}
-                  <TextLink href="https://questsincode.com/posts/stock-market-simulation-javascript">
+                  <TextLink href="/posts/stock-market-simulation-javascript">
                     posts
                   </TextLink>{' '}
                   on my blog, I gained a much deeper understanding of the math

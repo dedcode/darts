@@ -90,7 +90,7 @@ const defaultStylizeLine: <T>(
   line: T[],
   hovering: boolean,
   hoveringThisLine: boolean
-) => React.CSSProperties = function(_line, hovering, hoveringThisLine) {
+) => React.CSSProperties = function (_line, hovering, hoveringThisLine) {
   const lineStyle = { ...defaultLineStyles };
 
   if (hovering) {
@@ -142,15 +142,15 @@ export function LinesChart<T>({
   if (options.yDomain) yScale.domain(options.yDomain);
   else
     yScale.domain([
-      min(dataSeries, line => min(line.map(d => yAccessor(d)))),
-      max(dataSeries, line => max(line.map(d => yAccessor(d))))
+      min(dataSeries, (line) => min(line.map((d) => yAccessor(d)))),
+      max(dataSeries, (line) => max(line.map((d) => yAccessor(d))))
     ]);
   if (options.yDomainNice) yScale.nice();
   yScale.range([dimensions.boundedHeight, 0]);
 
   const chartLine = line<T>()
-    .x(d => xScale(xAccessor(d)))
-    .y(d => yScale(yAccessor(d)));
+    .x((d) => xScale(xAccessor(d)))
+    .y((d) => yScale(yAccessor(d)));
 
   const { fullContinuousLine, lineLeftOffsets } = useMemo(() => {
     if (noData) {
@@ -167,7 +167,7 @@ export function LinesChart<T>({
 
   // Bottleneck, should only run when data or dimensions change
   const linePathStringArray = useMemo(
-    () => dataSeries.map(line => chartLine(line)),
+    () => dataSeries.map((line) => chartLine(line)),
     [dataSeries, dimensions.width, dimensions.height]
   );
 
@@ -289,7 +289,7 @@ export function LinesChart<T>({
 
   return (
     <div
-      className="w-full relative bg-white rounded-md"
+      className="relative w-full rounded-md bg-white"
       style={{ maxWidth: `calc(60vh * ${aspectRatio})` }}
       onMouseMove={mouseMoved}
       onMouseOut={mouseOut}
@@ -304,7 +304,7 @@ export function LinesChart<T>({
             height: 'fit-content',
             opacity: selectedPoint ? '1' : '0'
           }}
-          className="absolute inset-0 pointer-events-none"
+          className="pointer-events-none absolute inset-0 text-gray-700"
         >
           {selectedPoint
             ? options.seriesNames
@@ -322,7 +322,7 @@ export function LinesChart<T>({
         getChart()
       ) : (
         <div
-          className="bg-gray-100 text-gray-400 rounded-md flex justify-center align-middle"
+          className="flex justify-center rounded-md bg-gray-100 align-middle text-gray-400"
           style={{ width: dimensions.width, height: dimensions.height }}
         >
           <svg

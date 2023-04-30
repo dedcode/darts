@@ -50,7 +50,7 @@ export function PortfolioProject({
               </h2>
               {github && (
                 <a
-                  href="https://github.com/Daynil/quests-in-code"
+                  href={github}
                   target="_blank"
                   rel="noopener"
                   className="ml-4"

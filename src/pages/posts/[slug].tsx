@@ -1,9 +1,10 @@
 import DOMPurify from 'dompurify';
 import { InferGetStaticPropsType } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import BlurImage from '../../components/blur-image';
+import Pill from '../../components/pill';
 import ReadHearts from '../../components/read-hearts';
 import SEO from '../../components/seo';
 import CommentsIcon from '../../components/svg/comments-icon';
@@ -12,7 +13,7 @@ import RetweetIcon from '../../components/svg/retweet-icon';
 import TwitterIcon from '../../components/svg/twitter-icon';
 import TextLink from '../../components/text-link';
 import { getFormattedDate, humanDateFromEpoch } from '../../utils/helpers';
-import { getPostBySlug, getPostSlugs } from '../../utils/mdx-api';
+import { getPostBySlug, getPostsInfo } from '../../utils/mdx-api';
 
 interface Webmention {
   source: string;
@@ -48,7 +49,7 @@ export default function BlogPost({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [webmentions, setWebmentions] = useState<Webmention[]>(null);
 
-  const postUrl = `https://questsincode.com/posts/${post.slug}/`;
+  const postUrl = `https://dlibin.net/posts/${post.slug}/`;
   const twitterShareUrl = `https://twitter.com/share?url=${postUrl}&text=“${post.title}”, a post from Danny Libin.&via=Dayn1l`;
   const twitterSearchUrl = `https://twitter.com/search?q=${postUrl}`;
 
@@ -74,14 +75,8 @@ export default function BlogPost({
   const postTags = !post.tags.length
     ? null
     : post.tags.map((tag, index) => (
-        <Link key={index} href={`/topics?topic=${tag}`}>
-          <span
-            className={
-              'ml-4 cursor-pointer rounded-full bg-teal-100 px-4 py-1 text-sm font-semibold tracking-widest text-teal-700 transition duration-200 ease-in-out hover:bg-teal-200 dark:bg-teal-900 dark:text-teal-100 dark:hover:bg-teal-700'
-            }
-          >
-            {tag}
-          </span>
+        <Link key={index} href={`/posts?filter=${tag}`}>
+          <Pill>{tag}</Pill>
         </Link>
       ));
 
@@ -160,7 +155,9 @@ export default function BlogPost({
       <div className="mt-24">
         <header>
           <div className="text-center">
-            <div className="flex flex-wrap justify-center">{postTags}</div>
+            <div className="flex flex-wrap justify-center space-x-4">
+              {postTags}
+            </div>
             <h1 className="my-2">{post.title}</h1>
             <div className="mb-8 flex flex-col justify-center text-gray-700 dark:text-gray-400 sm:flex-row sm:text-center">
               <span className="mr-2">
@@ -177,10 +174,14 @@ export default function BlogPost({
           </div>
           {!post.featuredImageMeta ? null : (
             <div className="mt-16 lg:-mx-16">
-              <BlurImage
+              <Image
+                src={post.featuredImageMeta.relativePath.replaceAll('\\', '/')}
+                placeholder="blur"
+                blurDataURL={post.featuredImageMeta.imgBase64}
+                width={post.featuredImageMeta.width}
+                height={post.featuredImageMeta.height}
                 className="z-0 rounded-md"
                 alt={post.title}
-                {...post.featuredImageMeta}
               />
             </div>
           )}
@@ -193,8 +194,8 @@ export default function BlogPost({
           target="_blank"
           className="mt-12 flex flex-row"
         >
-          <TwitterIcon className="w-24 text-teal-500 transition-colors duration-300 ease-in-out hover:text-teal-300" />
-          <span className="ml-4 rounded-md bg-teal-200 p-4 text-2xl text-teal-800 dark:bg-teal-800 dark:text-teal-200">
+          <TwitterIcon className="w-24 text-teal-500 transition-colors duration-150 ease-in-out hover:text-teal-300" />
+          <span className="ml-4 rounded-md bg-teal-200 p-4 text-2xl text-teal-800 transition-colors duration-150 hover:bg-teal-100 hover:text-teal-700 dark:bg-teal-800 dark:text-teal-100 hover:dark:bg-teal-300 hover:dark:text-teal-50">
             Found this article useful? Click to share, discuss and spread the
             word!! 🎉
           </span>
@@ -266,7 +267,7 @@ export default function BlogPost({
 
 export async function getStaticPaths() {
   return {
-    paths: getPostSlugs().map((slug) => ({
+    paths: getPostsInfo().slugs.map((slug) => ({
       params: { slug }
     })),
     fallback: false
