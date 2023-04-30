@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import { classNames } from '../utils/util';
 
 type Props = React.PropsWithRef<JSX.IntrinsicElements['a']>;
 
@@ -7,6 +8,7 @@ export default function TextLink({
   href,
   target,
   rel,
+  className,
   children,
   ...delegated
 }: Props) {
@@ -24,15 +26,31 @@ export default function TextLink({
 
   const link =
     external || internalImage ? (
-      <a href={href} rel={rel} target={target} {...delegated}>
+      <a
+        className={classNames(
+          'rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2',
+          className
+        )}
+        href={href}
+        rel={rel}
+        target={target}
+        {...delegated}
+      >
         {children}
       </a>
     ) : (
-      <Link href={href}>{children}</Link>
+      <Link href={href} legacyBehavior>
+        {children}
+      </Link>
     );
 
   return (
-    <span className="border-b-2 border-teal-500 text-gray-900 dk:text-gray-300 dk-hover:text-teal-500 hover:text-teal-500 hover:border-transparent transition duration-200 ease-in-out">
+    <span
+      className={classNames(
+        'border-b-2 border-teal-500 text-gray-900 transition duration-200 ease-in-out hover:border-transparent hover:text-teal-500 focus:outline-none focus-visible:rounded-md focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 dark:text-gray-300 dark:hover:text-teal-500',
+        className
+      )}
+    >
       {link}
     </span>
   );

@@ -1,3 +1,22 @@
+import BlurImage from '../components/blur-image';
+import { LlnDiceRolls } from '../components/charts/lln-dice-rolls';
+import { PiEstimator } from '../components/charts/pi-estimator';
+import { PiEstimatorChart } from '../components/charts/pi-estimator-chart';
+import { StockSim } from '../components/charts/stock-sim';
+import CodeBlock from '../components/code-block';
+import TextLink from '../components/text-link';
+
+export const mdxComponents = {
+  a: TextLink,
+  BlurImage: BlurImage,
+  // code: CodeBlock,
+  CodeBlock: CodeBlock,
+  PiEstimatorChart: PiEstimatorChart,
+  LlnDiceRolls: LlnDiceRolls,
+  PiEstimator: PiEstimator,
+  StockSim: StockSim
+};
+
 export const baseUrl =
   process.env.NODE_ENV === 'production'
     ? 'https://dlibin.net'

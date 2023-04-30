@@ -1,6 +1,7 @@
 import qrcode from 'qrcode';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SEO from '../components/seo';
+import TextInput from '../components/text-input';
 import TextLink from '../components/text-link';
 
 export default function QRCodePage() {
@@ -51,13 +52,13 @@ export default function QRCodePage() {
           <textarea
             rows={3}
             cols={30}
-            onChange={e => setQrText(e.target.value)}
-            className="px-2 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+            onChange={(e) => setQrText(e.target.value)}
+            className="rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
           >
             Hey, I'm a QR Code!! 😎
           </textarea>
         </div>
-        <canvas ref={txtCanvasRef} className="mt-2 ml-8"></canvas>
+        <canvas ref={txtCanvasRef} className="ml-8 mt-2"></canvas>
       </div>
       <h2>Encoded WiFi</h2>
       <p>
@@ -75,15 +76,21 @@ export default function QRCodePage() {
             <label htmlFor="ssid" className="font-semibold">
               SSID
             </label>
+            {/* TODO: style text inputs for dark */}
+            <TextInput
+              type="text"
+              id="ssid"
+              onChange={(e) => setSsid(e.target.value)}
+            />
             <input
               type="text"
               id="ssid"
-              onChange={e => setSsid(e.target.value)}
-              className="px-2 w-64 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+              onChange={(e) => setSsid(e.target.value)}
+              className="w-64 rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
             />
           </div>
           <div className="flex flex-col">
-            <label htmlFor="encryption" className="font-semibold mt-4">
+            <label htmlFor="encryption" className="mt-4 font-semibold">
               Enryption
             </label>
             <div>
@@ -94,7 +101,7 @@ export default function QRCodePage() {
                 id="wpa"
                 className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'WPA'}
-                onChange={e => setEncryption(e.target.value)}
+                onChange={(e) => setEncryption(e.target.value)}
               />
               <label className="ml-2" htmlFor="wpa">
                 WPA/WPA2
@@ -108,7 +115,7 @@ export default function QRCodePage() {
                 id="wep"
                 className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'WEP'}
-                onChange={e => setEncryption(e.target.value)}
+                onChange={(e) => setEncryption(e.target.value)}
               />
               <label className="ml-2" htmlFor="wep">
                 WEP
@@ -122,34 +129,34 @@ export default function QRCodePage() {
                 id="none"
                 className="text-teal-500 focus:ring-teal-300"
                 checked={encryption === 'nopass'}
-                onChange={e => setEncryption(e.target.value)}
+                onChange={(e) => setEncryption(e.target.value)}
               />
               <label className="ml-2" htmlFor="none">
                 None
               </label>
             </div>
-            <div className="flex flex-col mt-4">
+            <div className="mt-4 flex flex-col">
               <label htmlFor="key" className="font-semibold">
                 Key
               </label>
               <input
                 type="password"
                 id="key"
-                onChange={e => setKey(e.target.value)}
-                className="px-2 w-64 rounded-md shadow-sm bg-gray-100 border-gray-300 transition-colors duration-75 focus:bg-transparent focus:border-teal-400 focus:ring focus:ring-teal-300 focus:ring-opacity-50"
+                onChange={(e) => setKey(e.target.value)}
+                className="w-64 rounded-md border-gray-300 bg-gray-100 px-2 shadow-sm transition-colors duration-75 focus:border-teal-400 focus:bg-transparent focus:ring focus:ring-teal-300 focus:ring-opacity-50"
               />
             </div>
             <button
               onClick={() =>
                 setQrWifi(`WIFI:T:${encryption};S:${ssid};P:${key};;`)
               }
-              className="w-32 mt-4 bg-teal-500 text-white rounded-md p-2 font-semibold hover:bg-teal-400 transition-all duration-150"
+              className="mt-4 w-32 rounded-md bg-teal-500 p-2 font-semibold text-white transition-all duration-150 hover:bg-teal-400"
             >
               Generate!
             </button>
           </div>
         </div>
-        <canvas ref={wifiCanvasRef} className="mt-2 ml-8"></canvas>
+        <canvas ref={wifiCanvasRef} className="ml-8 mt-2"></canvas>
       </div>
     </div>
   );

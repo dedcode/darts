@@ -1,9 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
-import React from 'react';
-import BlurImage from '../components/blur-image';
 import { PortfolioProject } from '../components/portfolio-project';
 import SEO from '../components/seo';
-import GithubIcon from '../components/svg/github-icon';
 import TextLink from '../components/text-link';
 import { getRouteImageMeta } from '../utils/image-api';
 
@@ -13,9 +10,8 @@ export default function ProjectsPage({
   return (
     <div>
       <SEO title="Projects" />
-      <div className="mt-20 mb-12">
-        <h1>Some of my projects</h1>
-        <div className="bg-gray-100 p-3 md:p-12 rounded-lg lg:-mx-20">
+      <div className="mb-12 mt-20">
+        <div className="rounded-lg bg-gray-100 p-3 dark:bg-gray-800 md:p-12 lg:-mx-20">
           <PortfolioProject
             imageMeta={imgMeta['fiportfoliodoc.png']}
             projectTitle="FI Portfolio Doctor"
@@ -67,7 +63,7 @@ export default function ProjectsPage({
           />
           <PortfolioProject
             className="mt-10"
-            imageMeta={imgMeta['rxverisure2.png']}
+            imageMeta={imgMeta['rxverisure3.png']}
             projectTitle="RxVeriSure"
             projectUrl="https://rxverisure.com/"
             projectDescription={
@@ -80,52 +76,14 @@ export default function ProjectsPage({
                 </p>
                 <p>
                   This is a SaaS app I built from scratch from start to finish.
-                  It uses Angular 2+, Nestjs/Expressjs and MySQL for the
-                  backend, Firebase Auth for user authentication, and Stripe for
-                  payment processing.
+                  I used React/Nextjs for the frontend, Go and{' '}
+                  <TextLink href="https://pocketbase.io/">pocketbase</TextLink>{' '}
+                  for the backend, and Stripe for payment processing.
                 </p>
               </>
             }
           />
-          <div className="mt-10 bg-white">
-            <div className="shadow-md rounded-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="flex flex-col md:flex-row items-center justify-center">
-                <div className="w-1/3 flex justify-center">
-                  <div className="w-24">
-                    <a href="https://questsincode.com" target="_blank">
-                      <BlurImage
-                        {...imgMeta['logo-large.png']}
-                        className="rounded-lg z-0 hover:opacity-50 transition-opacity ease-in-out duration-300"
-                        alt="Quests In Code pixel shield logo"
-                      />
-                    </a>
-                  </div>
-                </div>
-                <div className="flex flex-col ml-6 px-6 pt-4 w-11/12 md:w-2/3">
-                  <div className="flex items-center mt-2 mb-8">
-                    <h2 className="m-0">
-                      <TextLink href="https://questsincode.com">
-                        Quests In Code Blog
-                      </TextLink>
-                    </h2>
-                    <a
-                      href="https://github.com/Daynil/quests-in-code"
-                      target="_blank"
-                      rel="noopener"
-                      className="ml-4"
-                    >
-                      <GithubIcon className="w-8 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
-                    </a>
-                  </div>
-                  <p>My blog site where I write about my coding journey.</p>
-                  <p>
-                    Like this site, created with React, Next.js and hosted on
-                    Netlify.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <PortfolioProject
             className="mt-10"
             imageMeta={imgMeta['ccaw2.png']}

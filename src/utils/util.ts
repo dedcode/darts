@@ -1,3 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function classNames(...classes: any): string {
+  return classes.filter(Boolean).join(' ');
+}
+
 // clsx function (conditional className construction)
 function toVal(mix) {
   var k,
@@ -43,4 +48,35 @@ export function clsx(...args: any[]) {
     }
   }
   return str;
+}
+
+/**
+ * Simple recursive deep clone of an object.
+ * Use to avoid mutating object references when needed.
+ */
+export function cloneDeep<T>(value: T): T {
+  // typeof arrays and objects both evaluation to 'object'
+  if (
+    typeof value !== 'object' ||
+    typeof value === 'undefined' ||
+    value === null
+  ) {
+    // Base case
+    // If the input is not an object or is null/undefined, return it as is
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    // If the input is an array, create a new array and clone each element
+    return value.map((item) => cloneDeep(item)) as T;
+  }
+
+  // If the input is an object, create a new object and clone each property
+  const clonedObj = {} as T;
+  for (const key in value) {
+    if (Object.prototype.hasOwnProperty.call(value, key)) {
+      clonedObj[key] = cloneDeep(value[key]);
+    }
+  }
+  return clonedObj;
 }

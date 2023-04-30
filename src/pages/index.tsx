@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
-import React from 'react';
-import BlurImage from '../components/blur-image';
+// import BlurImage from '../components/blur-image';
+import Image from 'next/image';
 import SEO from '../components/seo';
 import GithubIcon from '../components/svg/github-icon';
 import MailIcon from '../components/svg/mail-icon';
@@ -10,21 +10,29 @@ import { getRouteImageMeta } from '../utils/image-api';
 export default function IndexPage({
   imgMeta
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const imageMeta = { ...imgMeta['about-pic.jpg'] };
+  const imageAspect = imageMeta.width / imageMeta.height;
   return (
     <div>
       <SEO title="Danny Libin Personal Site" />
       <div className="mt-20 text-center">
         <h1>Hi! I'm Danny Libin.</h1>
       </div>
-      <div className="flex flex-col md:flex-row mt-16">
-        <div className="mr-8 mb-6 flex justify-center w-48">
-          <BlurImage
-            {...imgMeta['about-pic.jpg']}
-            className="rounded-lg z-0"
-            alt="Picture of Danny, smiling as best he can"
-          />
+      <div className="mt-16 flex w-full flex-col md:flex-row">
+        <div className="mb-6 mr-8 flex justify-center">
+          <div>
+            <Image
+              src={`${imageMeta.relativePath.replaceAll('\\', '/')}`}
+              placeholder="blur"
+              blurDataURL={imageMeta.imgBase64}
+              width={192}
+              height={imageAspect * 192}
+              className="z-0 rounded-lg"
+              alt="Picture of Danny, smiling as best he can"
+            />
+          </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex w-2/3 flex-col">
           <p className="-mt-4">
             I'm a software developer making awesome apps to learn and have fun.
             I got into coding completely on a whim{' '}
@@ -45,12 +53,12 @@ export default function IndexPage({
             shots 💉!!) slinging pills 💊💊.
           </p>
           <p>Feel free to reach out!</p>
-          <span className="flex -mt-2 mb-16">
+          <span className="-mt-2 mb-16 flex">
             <a href="https://github.com/Daynil" target="_blank" rel="me">
-              <GithubIcon className="w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
+              <GithubIcon className="w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
             </a>
             <a href="https://twitter.com/Dayn1l" target="_blank" rel="me">
-              <TwitterIcon className="ml-4 w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
+              <TwitterIcon className="ml-4 w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
             </a>
             <a
               className="flex items-center"
@@ -58,8 +66,8 @@ export default function IndexPage({
               target="_blank"
               rel="me"
             >
-              <MailIcon className="ml-4 mr-2 w-10 text-teal-500 hover:text-teal-300 transition-colors ease-in-out duration-300" />
-              <span className="border-b-2 border-teal-500 text-gray-900 dk:text-gray-300 dk-hover:text-teal-500 hover:text-teal-500 hover:border-transparent transition duration-200 ease-in-out">
+              <MailIcon className="ml-4 mr-2 w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
+              <span className="dk-hover:text-teal-500 border-b-2 border-teal-500 text-gray-900 transition duration-200 ease-in-out hover:border-transparent hover:text-teal-500 dark:text-gray-300">
                 dlibinrx@gmail.com
               </span>
             </a>

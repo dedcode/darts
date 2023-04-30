@@ -1,4 +1,9 @@
 @tailwind base;
+@tailwind components;
+
+html {
+  height: 100%;
+}
 
 body {
   overflow-x: hidden;
@@ -36,6 +41,5 @@ ul {
   @apply list-disc list-inside mb-6;
 }
 
-@tailwind components;
 
 @tailwind utilities;
