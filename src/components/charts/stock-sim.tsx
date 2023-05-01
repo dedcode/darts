@@ -331,7 +331,7 @@ export function StockSim({ chartType }: Props) {
                   }
                 }}
               />
-              <div className="flex w-full flex-row justify-center">
+              <div className="flex w-full flex-row flex-wrap justify-center">
                 <div className="ml-8 flex flex-row items-center">
                   <div
                     style={{

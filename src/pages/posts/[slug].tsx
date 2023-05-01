@@ -183,7 +183,7 @@ export default function BlogPost({
                 <span className="hidden sm:inline-block">•</span>{' '}
               </span>
               <span className="flex items-center justify-center">
-                <span className="mr-2 flex">
+                <span className="mr-2 flex flex-wrap">
                   <ReadHearts readTimeMins={post.timeToRead} />
                 </span>{' '}
                 {post.timeToRead} minute read

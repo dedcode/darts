@@ -43,7 +43,7 @@ export function PortfolioProject({
               />
             </a>
           </div>
-          <div className="ml-6 flex flex-col px-6 pt-4">
+          <div className="ml-6 flex flex-col pt-4 md:px-6">
             <div className="mb-6 mt-2 flex items-center">
               <h2 className="m-0">
                 <TextLink href={projectUrl}>{projectTitle}</TextLink>

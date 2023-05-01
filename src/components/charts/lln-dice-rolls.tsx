@@ -86,25 +86,27 @@ export function LlnDiceRolls({}: Props) {
   }
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center">
+      <div className="flex flex-wrap">
         <div className="m-4 w-40">
           <Button onClick={() => generateDiceRolls(+refNumRolls.current.value)}>
             Roll Dice
           </Button>
         </div>
-        <TextInput
-          className="m-4 py-2 pl-4"
-          type="number"
-          defaultValue={2}
-          min={2}
-          max={1000}
-          ref={refNumRolls}
-          onChange={(e) => {
-            if (+e.target.value > 10000) e.target.value = '10000';
-          }}
-        />
-        <span className="my-4">times</span>
-        <div className="m-4 ml-16 w-32">
+        <div>
+          <TextInput
+            className="m-4 py-2 pl-4"
+            type="number"
+            defaultValue={2}
+            min={2}
+            max={1000}
+            ref={refNumRolls}
+            onChange={(e) => {
+              if (+e.target.value > 10000) e.target.value = '10000';
+            }}
+          />
+          <span className="my-4">times</span>
+        </div>
+        <div className="m-4 w-32 md:ml-16">
           <Button onClick={() => setDiceRolls([])}>Reset</Button>
         </div>
       </div>

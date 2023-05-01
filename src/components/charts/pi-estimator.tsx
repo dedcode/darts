@@ -39,7 +39,7 @@ export function PiEstimator({}: Props) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center">
+      <div className="flex flex-wrap items-center">
         <div className="m-4 w-48">
           <Button
             onClick={() => generateRandomPoints(+refNumThrows.current.value)}
@@ -47,19 +47,21 @@ export function PiEstimator({}: Props) {
             Throw Dart
           </Button>
         </div>
-        <TextInput
-          className="m-4 py-2 pl-4"
-          type="number"
-          defaultValue={10}
-          min={1}
-          max={1000}
-          ref={refNumThrows}
-          onChange={(e) => {
-            if (+e.target.value > 1000) e.target.value = '1000';
-          }}
-        />
-        <span className="my-4">times</span>
-        <div className="m-4 ml-16 w-32">
+        <div>
+          <TextInput
+            className="m-4 py-2 pl-4"
+            type="number"
+            defaultValue={10}
+            min={1}
+            max={1000}
+            ref={refNumThrows}
+            onChange={(e) => {
+              if (+e.target.value > 1000) e.target.value = '1000';
+            }}
+          />
+          <span className="my-4">times</span>
+        </div>
+        <div className="m-4 w-32 md:ml-16">
           <Button
             onClick={() => {
               setScatterData([]);

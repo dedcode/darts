@@ -32,7 +32,7 @@ export default function IndexPage({
             />
           </div>
         </div>
-        <div className="mx-auto flex w-2/3 flex-col">
+        <div className="mx-auto flex w-full flex-col md:w-2/3">
           <p className="-mt-4">
             I'm a software developer making awesome apps to learn and have fun.
             I got into coding completely on a whim{' '}
@@ -56,7 +56,7 @@ export default function IndexPage({
             shots!!) slinging pills 💊💊.
           </p>
           <p>Feel free to reach out!</p>
-          <span className="mb-16 flex">
+          <span className="mb-16 flex flex-wrap">
             <a href="https://github.com/Daynil" target="_blank" rel="me">
               <GithubIcon className="w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
             </a>
