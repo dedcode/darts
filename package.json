@@ -52,7 +52,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "next start",
+    "start": "npm run dev",
     "dev": "npm run process-images && next dev",
     "process-images": "ts-node \"./scripts/process-images.ts\"",
     "build": "npm run full-rebuild && next build",

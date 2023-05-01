@@ -26,7 +26,7 @@ export default function IndexPage({
               placeholder="blur"
               blurDataURL={imageMeta.imgBase64}
               width={192}
-              height={imageAspect * 192}
+              height={192 / imageAspect}
               className="z-0 rounded-lg"
               alt="Picture of Danny, smiling as best he can"
             />
