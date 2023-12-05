@@ -44,12 +44,11 @@ export default function IndexPage({
             itself into my life both personal and professional.
           </p>
           <p>
-            I'm most familiar with the Typescript/Javascript ecosystem,
-            including React, Angular, and Node.js. I'm also well versed in
-            process automation with Python and VBA and data analytics with SQL.
-            I've also dabbled with Go for server-side development. I've used
-            Java for native Android development, and C# for native Windows
-            development and game development with Unity.
+            I've become most interested in data science, machine learning, AI, and process
+            automation with Python and SQL. I'm very interested in exploring the intersection of
+            AI and the field of medicine.
+            I'm also experienced with the Typescript/Javascript ecosystem,
+            including React, Angular, and Node.js.
           </p>
           <p>
             In my other life, I'm a pharmacist 👨‍⚕️ (get your flu (and COVID)
