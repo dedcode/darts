@@ -44,7 +44,7 @@ export default function IndexPage({
             itself into my life both personal and professional.
           </p>
           <p>
-            I most interested in data science, machine learning, AI, and process
+            I'm most interested in data science, machine learning, AI, and process
             automation with Python and SQL. I'm very interested in exploring the intersection of
             AI and the field of medicine.
             I'm also experienced with the Typescript/Javascript ecosystem,
