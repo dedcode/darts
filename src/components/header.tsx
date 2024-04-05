@@ -191,6 +191,13 @@ export default function Header({
                             >
                                 Lab
                             </HeaderLink>
+                            <HeaderLink
+                                href="/"
+                                isMobile={true}
+                                isActive={router.asPath == '/'}
+                            >
+                                About
+                            </HeaderLink>
                             {/* <Link
                 to="/about/"
                 className={mobileNavClassName}
