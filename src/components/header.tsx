@@ -21,16 +21,21 @@ type HeaderLinkProps = {
     href: string;
     isActive: boolean;
     isMobile: boolean;
+    handleMenuOpen: () => void;
     children: React.ReactNode;
 };
 
-function HeaderLink({ href, isActive, isMobile, children }: HeaderLinkProps) {
+function HeaderLink({ href, isActive, isMobile, handleMenuOpen, children }: HeaderLinkProps) {
     let linkClass = isMobile ? mobileNavClassName : navClassName;
     if (isActive) linkClass += activeClassName;
     return (
-        <Link href={href} className={linkClass}>
-            {children}
-        </Link>
+        isMobile ?
+            <Link href={href} className={linkClass} onClick={handleMenuOpen}>
+                {children}
+            </Link> :
+            <Link href={href} className={linkClass}>
+                {children}
+            </Link>
     );
 }
 
@@ -97,6 +102,7 @@ export default function Header({
                                 href="/posts/"
                                 isMobile={false}
                                 isActive={router.asPath.match(/(^\/posts)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Posts
                             </HeaderLink>
@@ -104,6 +110,7 @@ export default function Header({
                                 href="/projects/"
                                 isMobile={false}
                                 isActive={router.asPath.match(/(^\/projects)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Projects
                             </HeaderLink>
@@ -111,6 +118,7 @@ export default function Header({
                                 href="/lab/"
                                 isMobile={false}
                                 isActive={router.asPath.match(/(^\/lab)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Lab
                             </HeaderLink>
@@ -118,6 +126,7 @@ export default function Header({
                                 href="/"
                                 isMobile={false}
                                 isActive={router.asPath == '/'}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 About
                             </HeaderLink>
@@ -174,6 +183,7 @@ export default function Header({
                                 href="/posts/"
                                 isMobile={true}
                                 isActive={router.asPath.match(/(^\/posts)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Posts
                             </HeaderLink>
@@ -181,6 +191,7 @@ export default function Header({
                                 href="/projects/"
                                 isMobile={true}
                                 isActive={router.asPath.match(/(^\/projects)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Projects
                             </HeaderLink>
@@ -188,6 +199,7 @@ export default function Header({
                                 href="/lab/"
                                 isMobile={true}
                                 isActive={router.asPath.match(/(^\/lab)/i)?.length > 0}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 Lab
                             </HeaderLink>
@@ -195,6 +207,7 @@ export default function Header({
                                 href="/"
                                 isMobile={true}
                                 isActive={router.asPath == '/'}
+                                handleMenuOpen={handleMenuOpen}
                             >
                                 About
                             </HeaderLink>
