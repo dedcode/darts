@@ -42,14 +42,18 @@ export default function IndexPage({
                         With years of experience being a technical clinician as a pharmacist in managed care, as well as a pharmacist at point of care,
                         I bring a 360-degree view to the field of health care as a pharmacist, data analyst, and software engineer.
                     </p>
-                    <p>
+                    {/* <p>
                         Today, I channel this interdisciplinary skillset as an entrepreneur,
                         consulting on impactful solutions and developing transformative software products.
-                    </p>
+                    </p> */}
                     <p>
+                        Today, I channel this interdisciplinary skillset as an entrepreneur developing transformative software products.
+                    </p>
+                    <p>Want to work together? Feel free to reach out.</p>
+                    {/* <p>
                         Does your healthcare initiative need a bilingual translator bridging the clinical and coding worlds?
                         I'm ready to get creative and turn your vision into reality. Feel free to reach out.
-                    </p>
+                    </p> */}
                     <span className="mb-16 flex flex-wrap">
                         <a href="https://github.com/Daynil" target="_blank" rel="me">
                             <GithubIcon className="w-10 text-teal-600 transition-colors duration-300 ease-in-out hover:text-teal-300" />
