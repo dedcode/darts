@@ -12,13 +12,13 @@ import { highlightCodeBlock } from './remark-highlight';
 
 export function getPostsInfo() {
   const slugs = fs
-    .readdirSync(join(process.cwd(), 'src', 'posts'))
+    .readdirSync(join(process.cwd(), 'src', '_posts'))
     .map((name) => name.replace('.mdx', ''));
 
   const postsMeta = slugs
     .map((slug) => {
       const fileContents = fs.readFileSync(
-        join(process.cwd(), 'src', 'posts', `${slug}.mdx`),
+        join(process.cwd(), 'src', '_posts', `${slug}.mdx`),
         'utf-8'
       );
       const matterResult = matter(fileContents);
@@ -67,7 +67,7 @@ export async function getPostBySlug(slug: string) {
   } else imgMeta = sharedImgMeta;
 
   const fileContents = fs.readFileSync(
-    join(process.cwd(), 'src', 'pages', `${slug}.mdx`),
+    join(process.cwd(), 'src', '_posts', `${slug}.mdx`),
     'utf-8'
   );
 
