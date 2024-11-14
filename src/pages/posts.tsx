@@ -108,6 +108,6 @@ export default function PostsPage({
 
 export async function getStaticProps() {
   return {
-    props: { posts: getPostsInfo().postsMeta }
+    props: {}
   };
 }
