@@ -1,12 +1,9 @@
-import { configDefaults, defineConfig } from 'vitest/config';
+import { defineConfig } from 'vite';
+import mdx from 'vite-plugin-mdx';
 
 export default defineConfig({
-  test: {
-    exclude: [...configDefaults.exclude, 'e2e/**/*', '.netlify/**/*']
-  },
-  css: {
-    postcss: {
-      plugins: []
-    }
-  }
+  plugins: [
+    mdx(), // Add MDX plugin
+  ],
 });
+

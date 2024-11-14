@@ -79,10 +79,8 @@ export function PiEstimator({}: Props) {
           {format(',')(scatterData.length)}
         </div>
         <div>
-          <b>Pi Estimate: </b>
-          {scatterData.length
-            ? ((4 * dartHits) / scatterData.length).toFixed(4)
-            : 0}
+          <b>Darts in Circle: </b>
+          {dartHits}
         </div>
       </div>
     </div>
